@@ -60,6 +60,7 @@ eksctl create cluster --name cluster-name  \
     ```
 
 4.1 Basic Kubernetes Commands
+	```sh
 	>> get number of pods
 	kubectl get nodes
 	
@@ -70,7 +71,7 @@ eksctl create cluster --name cluster-name  \
 	kubectl get pods
 	
 	>> Create Manifest file
-	
+	```
 	
 
 5. To delete the EKS clsuter 
@@ -84,7 +85,7 @@ eksctl create cluster --name cluster-name  \
    kubectl run tomcat --image=tomcat 
    ```
    
-   #### Deploying Nginx pods on Kubernetes
+   #### DIY 1  :Deploying Nginx pods on Kubernetes
 1. Deploying Nginx Container
     ```sh
     kubectl create deployment  demo-nginx --image=nginx --replicas=2 --port=80
@@ -93,7 +94,7 @@ eksctl create cluster --name cluster-name  \
     kubectl get pod
    ```
 
-1. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
+2. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
    ```sh
    kubectl expose deployment demo-nginx --port=80 --type=LoadBalancer
    # kubectl expose deployment regapp --port=8080 --type=LoadBalancer
