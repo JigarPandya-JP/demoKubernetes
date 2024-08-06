@@ -53,8 +53,8 @@ eksctl create cluster --name cluster-name  \
    --zones <AZ-1>,<AZ-2>
    
    example:
-   eksctl create cluster --name mydemo \
-   --region ap-south-1 \
+   eksctl create cluster --name mydemo \\
+   --region ap-south-1 \\
    --node-type t2.small 
   
     ```
