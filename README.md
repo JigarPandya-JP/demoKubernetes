@@ -53,8 +53,8 @@ eksctl create cluster --name cluster-name  \
    --zones <AZ-1>,<AZ-2>
    
    example:
-   eksctl create cluster --name mydemo \
-   --region ap-south-1 \
+   eksctl create cluster --name mydemo \\
+   --region ap-south-1 \\
    --node-type t2.small 
   
     ```
@@ -70,10 +70,56 @@ eksctl create cluster --name cluster-name  \
 	>> See pods
 	kubectl get pods
 	
-	>> Create Manifest file
-	```
+	
+	kubectl create deployment  demo-nginx --image=nginx --replicas=2 --port=80
+
+	kubectl expose deployment demo-nginx --port=80 --type=LoadBalancer
+
+	kubectl delete service/demo-nginx
+	kubectl delete deployment demo-nginx
+
+```	
+4.2 Create Manifest file
+	```sh
+	>>pod.xml
+		apiVersion: v1
+		kind: Pod
+		metadata:
+		  name: nginx-pod
+		  labels:
+			app: demo-app
+
+		spec:
+		  containers:
+		  - name: nginx-container
+			image: nginx
+			ports:
+			- name: nginx 
+			  containerPort: 80
+
+
+	>>service.xml
+	
+		apiVersion: v1
+		kind: Service
+		metadata:
+		  name: demo-service
+
+		spec:
+		  ports:
+		  - name: demo-service
+			port: 80
+			targetPort: 80
+
+		  type: LoadBalancer
+
+	kubectl apply -f pod.yml
+	kubectl apply -f service.yml
+	kubectl describe service/demo-service
+	kubectl get pod -o wide
 	
 
+   ```
 5. To delete the EKS clsuter 
    ```sh 
    eksctl delete cluster mydemo --region ap-south-1
@@ -85,7 +131,41 @@ eksctl create cluster --name cluster-name  \
    kubectl run tomcat --image=tomcat 
    ```
    
-   #### DIY 1  :Deploying Nginx pods on Kubernetes
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   #### Deploying Nginx pods on Kubernetes
 1. Deploying Nginx Container
     ```sh
     kubectl create deployment  demo-nginx --image=nginx --replicas=2 --port=80
@@ -94,7 +174,7 @@ eksctl create cluster --name cluster-name  \
     kubectl get pod
    ```
 
-2. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
+1. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
    ```sh
    kubectl expose deployment demo-nginx --port=80 --type=LoadBalancer
    # kubectl expose deployment regapp --port=8080 --type=LoadBalancer
